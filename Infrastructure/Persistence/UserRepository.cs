@@ -22,7 +22,7 @@ namespace Infrastructure.Persistence
             settings.SslSettings = new SslSettings
             {
                 EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12,
-                AllowInsecureTls = true
+                ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true
             };
             var client = new MongoClient(settings);
             var database = client.GetDatabase(databaseName);
