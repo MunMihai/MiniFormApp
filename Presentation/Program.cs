@@ -45,8 +45,11 @@ app.Use(async (context, next) =>
     {
         await next();
     }
-    catch (Exception)
+    catch (Exception ex)
     {
+        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Unhandled exception: {Message}", ex.Message);
+
         var origin = context.Request.Headers.Origin.ToString();
         if (!string.IsNullOrEmpty(origin))
         {
@@ -55,7 +58,7 @@ app.Use(async (context, next) =>
             context.Response.Headers["Access-Control-Allow-Methods"] = "*";
         }
         context.Response.StatusCode = 500;
-        await context.Response.WriteAsJsonAsync(new { error = "Internal server error" });
+        await context.Response.WriteAsJsonAsync(new { error = ex.Message });
     }
 });
 

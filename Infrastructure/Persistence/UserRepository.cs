@@ -21,7 +21,8 @@ namespace Infrastructure.Persistence
             var settings = MongoClientSettings.FromConnectionString(connectionString);
             settings.SslSettings = new SslSettings
             {
-                EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12
+                EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12,
+                AllowInsecureTls = true
             };
             var client = new MongoClient(settings);
             var database = client.GetDatabase(databaseName);
