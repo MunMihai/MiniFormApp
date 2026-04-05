@@ -47,6 +47,7 @@ jobs:
           service: miniformapp-backend
           region: ${{ env.REGION }}
           image: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/backend:${{ github.sha }}
+          flags: --port=80 --allow-unauthenticated
           env_vars: |
             MongoSettings__ConnectionString=${{ secrets.MONGO_CONNECTION_STRING }}
             MongoSettings__DatabaseName=MiniFormDb
@@ -72,6 +73,7 @@ jobs:
           service: miniformapp-frontend
           region: ${{ env.REGION }}
           image: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/frontend:${{ github.sha }}
+          flags: --port=80 --allow-unauthenticated
           env_vars: |
             API_BASE_URL=${{ steps.deploy-backend.outputs.url }}
 
