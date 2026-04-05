@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+.nuget/
+**/*.user
+**/*.suo
+**/*.git
+**/node_modules
+**/dist
+Dockerfile
+docker-compose.yml

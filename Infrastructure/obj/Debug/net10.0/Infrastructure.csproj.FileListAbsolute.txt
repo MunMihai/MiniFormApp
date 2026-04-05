@@ -1,0 +1,16 @@
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\bin\Debug\net10.0\Infrastructure.deps.json
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\bin\Debug\net10.0\Infrastructure.dll
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\bin\Debug\net10.0\Infrastructure.pdb
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\bin\Debug\net10.0\Application.dll
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\bin\Debug\net10.0\Application.pdb
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.csproj.AssemblyReference.cache
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.AssemblyInfoInputs.cache
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.AssemblyInfo.cs
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.csproj.CoreCompileInputs.cache
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.sourcelink.json
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastr.15EFFBFE.Up2Date
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.dll
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\refint\Infrastructure.dll
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\Infrastructure.pdb
+D:\Universitate\Master\AC\MiniFormApp\Infrastructure\obj\Debug\net10.0\ref\Infrastructure.dll

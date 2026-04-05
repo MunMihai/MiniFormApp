@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: miniformapp
+data:
+  MongoSettings__ConnectionString: "mongodb://mongo:27017"
+  MongoSettings__DatabaseName: "MiniFormDb"
+  AllowedOrigins: "http://localhost:5173"
