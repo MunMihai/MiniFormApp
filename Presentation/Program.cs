@@ -38,6 +38,27 @@ var app = builder.Build();
 // 🔥 CORS primul - inainte de orice alt middleware
 app.UseCors("AllowFrontend");
 
+// Pastreaza headerele CORS chiar si pe raspunsuri de eroare (500)
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (Exception)
+    {
+        var origin = context.Request.Headers.Origin.ToString();
+        if (!string.IsNullOrEmpty(origin))
+        {
+            context.Response.Headers["Access-Control-Allow-Origin"] = origin;
+            context.Response.Headers["Access-Control-Allow-Headers"] = "*";
+            context.Response.Headers["Access-Control-Allow-Methods"] = "*";
+        }
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsJsonAsync(new { error = "Internal server error" });
+    }
+});
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
