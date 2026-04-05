@@ -65,6 +65,11 @@ app.Use(async (context, next) =>
 app.UseSwagger();
 app.UseSwaggerUI();
 
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
 //app.UseHttpsRedirection();
 
 app.UseAuthorization();
