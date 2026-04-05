@@ -35,6 +35,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// 🔥 CORS primul - inainte de orice alt middleware
+app.UseCors("AllowFrontend");
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -42,9 +45,6 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
-// 🔥 CORS middleware
-app.UseCors("AllowFrontend");
 
 //app.UseHttpsRedirection();
 
