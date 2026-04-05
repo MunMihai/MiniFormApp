@@ -1,0 +1,81 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  REGION: ${{ secrets.GCP_REGION }}
+  REGISTRY: europe-west1-docker.pkg.dev
+
+jobs:
+  deploy:
+    name: Build, Push and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGISTRY }} --quiet
+
+      # --- Backend ---
+      - name: Build backend image
+        run: |
+          docker build \
+            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/backend:${{ github.sha }} \
+            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/backend:latest \
+            -f Presentation/Dockerfile .
+
+      - name: Push backend image
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/backend:${{ github.sha }}
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/backend:latest
+
+      - name: Deploy backend to Cloud Run
+        id: deploy-backend
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: miniformapp-backend
+          region: ${{ env.REGION }}
+          image: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/backend:${{ github.sha }}
+          env_vars: |
+            MongoSettings__ConnectionString=${{ secrets.MONGO_CONNECTION_STRING }}
+            MongoSettings__DatabaseName=MiniFormDb
+            AllowedOrigins=${{ secrets.ALLOWED_ORIGINS }}
+
+      # --- Frontend ---
+      - name: Build frontend image
+        run: |
+          docker build \
+            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/frontend:${{ github.sha }} \
+            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/frontend:latest \
+            ./Frontend
+
+      - name: Push frontend image
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/frontend:${{ github.sha }}
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/frontend:latest
+
+      - name: Deploy frontend to Cloud Run
+        id: deploy-frontend
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: miniformapp-frontend
+          region: ${{ env.REGION }}
+          image: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/miniformapp/frontend:${{ github.sha }}
+          env_vars: |
+            API_BASE_URL=${{ steps.deploy-backend.outputs.url }}
+
+      - name: Print URLs
+        run: |
+          echo "Backend:  ${{ steps.deploy-backend.outputs.url }}"
+          echo "Frontend: ${{ steps.deploy-frontend.outputs.url }}"
