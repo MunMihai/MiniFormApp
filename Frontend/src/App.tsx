@@ -23,6 +23,7 @@ function FormPage({ onSubmitSuccess }: { onSubmitSuccess: () => void }) {
     birthDate: "",
     sex: ""
   });
+  const [agreed, setAgreed] = useState(false);
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,16 @@ function FormPage({ onSubmitSuccess }: { onSubmitSuccess: () => void }) {
           <option value="F">Feminin</option>
         </select>
 
-        <button onClick={handleSubmit} disabled={loading}>
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={agreed}
+            onChange={e => setAgreed(e.target.checked)}
+          />
+          Sunt de acord cu termenii si conditiile
+        </label>
+
+        <button onClick={handleSubmit} disabled={loading || !agreed}>
           {loading ? "Se trimite..." : "Salveaza"}
         </button>
       </div>
