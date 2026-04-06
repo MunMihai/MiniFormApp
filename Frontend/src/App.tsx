@@ -50,7 +50,7 @@ function FormPage({ onSubmitSuccess }: { onSubmitSuccess: () => void }) {
   return (
     <div className="page">
       <div className="card">
-        <h2>Adauga persoane</h2>
+        <h2></h2>
 
         <input
           name="firstName"
