@@ -76,14 +76,14 @@ function FormPage({ onSubmitSuccess }: { onSubmitSuccess: () => void }) {
           <option value="F">Feminin</option>
         </select>
 
-        {/* <label className="checkbox-label">
+        <label className="checkbox-label">
           <input
             type="checkbox"
             checked={agreed}
             onChange={e => setAgreed(e.target.checked)}
           />
           Sunt de acord cu termenii si conditiile
-        </label> */}
+        </label>
 
         <button onClick={handleSubmit} disabled={loading || !agreed}>
           {loading ? "Se trimite..." : "Salveaza"}
